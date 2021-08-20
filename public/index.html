@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Resume page - HNG Stage 2 Backend Task</title>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        .ap-pd {
+            padding: 0 80px;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Lato, Helvetica, sans-serif;
+        }
+
+        .container {
+            max-width: 1320px;
+            margin: 0 auto;
+        }
+
+        .message-resonse-div {
+            border: none;
+            font-size: 14px;
+            margin-bottom: 0.8rem;
+            color: white;
+            background-color: rgba(0, 222, 0, 0.8);
+            padding: 0.5rem;
+            border-radius: 6px;
+            border-color: transparent !important;
+            width: fit-content;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            align-items: center;
+            padding-top: 1.5rem;
+            padding-bottom: 1.5rem;
+        }
+
+        .menu {
+            display: none;
+            background-color: #fff;
+            border: none;
+            padding: 0.2rem 0.5rem;
+            box-shadow: 0px 0px 4px 1px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            position: fixed;
+            right: 40px;
+            z-index: 5;
+            top: 1.8rem;
+        }
+
+        .menu:hover {
+            box-shadow: 0px 0px 8px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        .header ul {
+            display: flex;
+        }
+
+        .header ul li {
+            list-style: none;
+            margin-left: 1rem;
+
+        }
+
+        .header ul li a {
+            text-decoration: none;
+            color: #000
+        }
+
+        .header ul li a:hover {
+            font-weight: 600;
+            color: rgb(4, 119, 191);
+        }
+
+        .sect1 {
+            display: grid;
+            grid-template-columns: 23rem 1fr;
+            margin: 3rem 0;
+        }
+
+        .sect1-img img {
+            max-width: 100%;
+            max-height: 100%;
+            display: inline-block;
+            transform: scale(1.38) translateX(2rem);
+        }
+
+        .sect1-img {
+            display: inline-block;
+            width: 19rem;
+            height: 19rem;
+            border-radius: 100rem;
+            overflow: hidden;
+        }
+
+        .sect1>div:nth-child(1) {
+            margin-right: 4rem;
+        }
+
+        p {
+            line-height: 28px;
+            opacity: 0.85;
+        }
+
+        .hline {
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            width: 100%;
+            margin: 1rem 0;
+        }
+
+        .sect1-r h1 {
+            line-height: 39px;
+            margin-bottom: 0.5rem;
+        }
+
+        .sect1-r p {
+            margin: 0.7rem 0;
+        }
+
+        .sect1-r ul li {
+            list-style: none;
+            display: grid;
+            justify-content: space-between;
+            grid-template-columns: 7rem 1fr;
+            margin: 0.8rem 0;
+
+        }
+
+        .sect1-r ul li span:nth-child(1) {
+            font-weight: 600;
+        }
+
+        .sect1-r ul li span:nth-child(2) a {
+            color: black;
+            text-decoration: none;
+        }
+
+        .sect1-r button {
+            border: none;
+            padding: 1rem 1.5rem;
+            background-color: rgb(4, 119, 191);
+            text-transform: uppercase;
+            font-weight: 600;
+            color: white;
+            margin: 1rem 0 0;
+            cursor: pointer;
+        }
+
+        .sect2 {
+            display: grid;
+            grid-template-columns: 23rem 1fr;
+            padding-top: 2rem;
+            padding-bottom: 2rem;
+        }
+
+        .sect2>div:nth-child(1) {
+            padding-right: 1rem;
+        }
+
+        .sect2 h2 {
+            font-size: 2.2rem;
+
+        }
+
+        .sect2-r>div p {
+            margin: 0.5rem 0;
+            opacity: 0.8;
+        }
+
+        .sect2-r>div h3 {
+            margin-bottom: 0.2rem;
+        }
+
+        .contact-sect form input,
+        .contact-sect form textarea {
+            display: block;
+            width: 100%;
+            padding: 0.8rem;
+            font-family: Lato !important;
+        }
+
+        .contact-sect form textarea {
+            resize: none;
+        }
+
+        .contact-sect form input:focus,
+        .contact-sect form textarea:focus {
+            border: 2px solid rgb(4, 119, 191) !important;
+            outline: none;
+        }
+
+        .contact-sect form {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+        }
+
+        .contact-sect form>div:nth-child(1) {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            margin-right: 1rem;
+        }
+
+        .send-button {
+            border: none;
+            padding: 1rem 1.5rem;
+            background-color: rgb(4, 119, 191);
+            text-transform: uppercase;
+            font-weight: 600;
+            color: white;
+            margin: 1rem 0 0;
+            cursor: pointer;
+        }
+
+        .footer {
+            text-align: center;
+        }
+
+        .footer a img {
+            display: inline-block;
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        .footer a {
+            width: 10rem;
+            height: 5rem;
+            display: inline-block;
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .footer a {
+            margin-right: 1rem;
+        }
+
+        .footer>div {
+            display: flex;
+            justify-content: center;
+        }
+
+        .text-blue {
+            color: rgb(4, 119, 191);
+        }
+
+        @media screen and (min-width: 828px) {
+            .send-button {
+                margin-top: 2rem;
+            }
+        }
+
+
+        @media screen and (max-width: 1082px) {
+            .contact-sect form {
+                display: grid;
+                grid-template-columns: 1fr 1.3fr;
+            }
+
+        }
+
+        @media screen and (max-width: 995px) {
+            .sect2 {
+                display: grid;
+                grid-template-columns: 18rem 1fr;
+                padding-top: 2rem;
+                padding-bottom: 2rem;
+            }
+
+            .sect1-img {
+                width: 16rem;
+                height: 16rem;
+            }
+
+            .sect1 {
+                grid-template-columns: 18rem 1fr;
+            }
+
+            .sect1-img img {
+                transform: scale(1.38) translateX(1.5rem);
+            }
+
+        }
+
+        @media screen and (max-width: 828px) {
+
+            .contact-sect form input,
+            .contact-sect form textarea {
+                display: block;
+                width: 100%;
+                padding: 0.8rem;
+                font-family: Lato !important;
+                margin-bottom: 1rem;
+            }
+
+            .contact-sect form textarea {
+                resize: none;
+            }
+
+            .contact-sect form {
+                display: grid;
+                grid-template-columns: 1fr;
+            }
+
+            .contact-sect form>div:nth-child(1) {
+                display: block;
+                flex-direction: column;
+                justify-content: space-between;
+                margin-right: 0;
+            }
+
+        }
+
+        @media screen and (max-width: 752px) {
+
+            .sect1,
+            .sect2 {
+                grid-template-columns: 1fr;
+            }
+
+            .sect1-img {
+                margin: 0 auto;
+            }
+
+            .menu {
+                display: inline-block;
+            }
+
+
+            .header ul {
+                display: flex;
+                position: fixed;
+                left: 0;
+                top: 5rem;
+                flex-direction: column;
+                text-align: center;
+                z-index: 5;
+                width: 100%;
+                background-color: rgba(255, 255, 255, 0.8);
+                box-shadow: 1px 2px 12px 1px rgba(0, 0, 0, 0.1);
+                padding: 1rem 0;
+                display: none;
+            }
+
+            .show-mobile {
+                display: flex !important;
+            }
+
+            .header ul li {
+                list-style: none;
+                margin: 1rem 0;
+
+            }
+
+            .header ul li a {
+                text-decoration: none;
+                color: #000
+            }
+
+            .header ul li a:hover {
+                font-weight: 600;
+                color: rgb(4, 119, 191);
+            }
+
+            .ap-pd {
+                padding-right: 40px;
+                padding-left: 40px;
+            }
+
+
+            .sect2>div:nth-child(1) {
+                padding-right: 0rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .sect1>div:nth-child(1) {
+                margin-right: 0;
+                text-align: center;
+            }
+
+            .sect1-img {
+                margin-bottom: 2rem;
+            }
+
+            .sect1-img img {
+                transform: scale(1.38) translateX(0rem);
+            }
+
+            .sect1,
+            .sect1-r {
+                max-width: 100%;
+            }
+
+        }
+
+        @media screen and (max-width: 428px) {
+            .sect1-img {
+                width: 12rem;
+                height: 12rem
+            }
+
+            .sect1-r {
+                width: 100%
+            }
+
+            .sect1-r ul li {
+                grid-template-columns: 1fr;
+                margin: 0.8rem 0;
+            }
+
+            .sect1-r ul li span:nth-child(1) {
+                margin-bottom: 0.3rem;
+            }
+
+        }
+
+        @media screen and (max-width: 380px) {
+            .ap-pd {
+                padding-right: 20px;
+                padding-left: 20px;
+            }
+
+            .menu {
+                right: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header class="header ap-pd">
+            <h2>Gideon.</h2>
+            <nav>
+                <button class="menu">Menu</button>
+                <ul class="">
+                    <li><a href="#skill">Skill</a></li>
+                    <li><a href="#experience">Experience</a></li>
+                    <li><a href="#education">Education</a></li>
+                    <li><a href="#certifications">Certifications</a></li>
+                    <li><a href="#contact">Contact Me</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <div class="main-body">
+            <div class="sect1 ap-pd">
+                <div>
+                    <span class="sect1-img"><img src="/images/ifex.jpg" alt="Gideon" /></span>
+                </div>
+                <div class="sect1-r">
+                    <h1>I am Gideon Idoko.</h1>
+                    <p>I am a Web Developer located in Nigeria. I currently work as a part time Remote Mid-Level Web
+                        Developer for AlphaCX, located in Lagos. I am looking to take on more work and to increase my
+                        skills as a Web Developer.</p>
+                    <ul>
+                        <li><span>PHONE</span> <span>09036290221</span></li>
+                        <li><span>EMAIL</span> <span>iamgideonidoko@gmail.com</span></li>
+                        <li><span>ADDRESS</span> <span>Kogi Nigeria.</span></li>
+                        <li><span>SOCIAL</span> <span><a href="https://github.com/IamGideonIdoko"
+                                    target="_blank">https://github.com/IamGideonIdoko</a></span></li>
+                    </ul>
+                    <div>
+                        <button class="top-contact-btn">Contact Me</button>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="hline"></div>
+
+            <div class="sect2 ap-pd">
+                <div>
+                    <div>
+                        <h2 id="skill">Skills.</h2>
+                        <p>I am inspired by creating great work with people who are as passionate as I am about building
+                            something awesome.</p>
+                    </div>
+                    <div>
+
+                    </div>
+                </div>
+
+                <div class='sect2-r'>
+                    <div>
+                        <h3>Frontend Development</h3>
+                        <p>HTML, CSS, SASS, Bootstrap, Wordpress, React, React Native.</p>
+                    </div>
+
+                    <div class="hline"></div>
+
+                    <div>
+                        <h3>Backend Development</h3>
+                        <p>Javascript, PHP, Node.js, MongoDB, MySQL.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hline"></div>
+
+            <div class="sect2 sect3 ap-pd">
+                <div>
+                    <div>
+                        <h2 id="experience">Experience.</h2>
+                        <p>I partner with startups and organizations to build digital products that help clients
+                            overcome challenges and create lasting connections with millions of people every day.</p>
+                    </div>
+                    <div>
+
+                    </div>
+                </div>
+
+                <div class='sect2-r'>
+                    <div>
+                        <h3>Freelance Developer</h3>
+                        <p><small><i>2019 - 2020</i></small></p>
+                        <p>I build unique digital experiences for a lot of my clients.</p>
+                    </div>
+
+                    <div class="hline"></div>
+
+                    <div>
+                        <h3>Frontend Developer (AlphaCX)</h3>
+                        <p><small><i>2021 - Present</i></small></p>
+                        <p>Javascript, PHP, Node.js, MongoDB, MySQL.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hline"></div>
+
+            <div class="sect2 sect4 ap-pd">
+                <div>
+                    <div>
+                        <h2 id="education">Education.</h2>
+                        <p>All my life I have been driven by my strong belief that education is important. I try to
+                            learn something new every single day.</p>
+                    </div>
+                    <div>
+
+                    </div>
+                </div>
+
+                <div class='sect2-r'>
+                    <div>
+                        <h3>Federal University Lokoja</h3>
+                        <p>BSc. Computer Science (2017 - 2022)</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hline"></div>
+
+            <div class="sect2 sect4 ap-pd">
+                <div>
+                    <div>
+                        <h2 id="certifications">Certifications.</h2>
+                        <p>Some of the proofs of training I have undergone overtime.</p>
+                    </div>
+                    <div>
+
+                    </div>
+                </div>
+
+                <div class='sect2-r'>
+                    <div>
+                        <h3>freeCodeCamp</h3>
+                        <p>JavaScript Algorithms & Data Structures</p>
+                        <p>Frontend Libaries</p>
+                        <p>Responsive Web Design</p>
+                    </div>
+                    <div class="hline"></div>
+                    <div>
+                        <h3>IBM</h3>
+                        <p>JavaScript</p>
+                        <p>Web Development</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hline"></div>
+
+
+            <div class="contact-sect sect2 ap-pd">
+                <div>
+                    <div>
+                        <h2 id="contact">Contact.</h2>
+                        <p>Are you working on something great? I would love to help make it happen! Drop me a letter and
+                            start your project right now! Just do it.</p>
+                    </div>
+                </div>
+                <div>
+                    <div class="message-resonse-div"></div>
+                    <form method="post" action="/api/contact">
+                        <div>
+                            <div>
+                                <input type="text" id="name" name="name" placeholder="Your Name" required
+                                    aria-label="name">
+                            </div>
+                            <div>
+                                <input type="email" name="email" id=email placeholder="Your Email" required
+                                    aria-label="email">
+                            </div>
+                        </div>
+                        <div>
+                            <textarea name="message" id="message" placeholder="Message" required rows="7"></textarea>
+                        </div>
+
+                        
+                        <div>
+                            <button type="submit" class="send-button">Send Message</button>
+                        </div>
+                        
+                    </form>
+                </div>
+            </div>
+
+            <div class="hline"></div>
+        </div>
+
+        <footer class="footer ap-pd">
+            <p>Powered By:</p>
+            <div>
+                <a href="https://zuri.team">.<img src="./images/zuritraining.png" alt=""></a>
+                <a href="https://hng.tech">.<img src="./images/hngintern.png" alt=""></a>
+                <a href="https://ingressive.org">.<img src="./images/ingressive.png" alt=""></a>
+            </div>
+        </footer>
+    </div>
+
+
+    <script>
+        const menuBtn = document.querySelector('.menu');
+        const headerUl = document.querySelector('.header ul');
+        const formName = document.querySelector('#name');
+        const formEmail = document.querySelector('#email');
+        const formMsg = document.querySelector('#message');
+        const form = document.querySelector('.contact-sect form');
+        const topBtn = document.querySelector('.top-contact-btn');
+        const sendBtn = document.querySelector('.send-button');
+        const messageResponse = document.querySelector('.message-resonse-div');
+
+        messageResponse.style.display = 'none';
+
+        menuBtn.onclick = function () {
+            if (headerUl.classList.contains('show-mobile')) {
+                headerUl.classList.remove('show-mobile');
+            } else {
+                headerUl.classList.add('show-mobile')
+            }
+        }
+
+        topBtn.onclick = function () {
+            formName.focus();
+        }
+
+        async function postData(url = '', data = {}) {
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify(data)
+        });
+            return response.json();
+        }
+
+        form.onsubmit = function (e) {
+            e.preventDefault();
+
+            sendBtn.innerText = 'SENDING... MESSAGE'
+            sendBtn.disabled = true;
+
+            const values = {
+                name: formName.value,
+                email: formName.value,
+                message: formEmail.value
+            };
+
+            postData('/api/contact', values)
+                .then(data => {
+                    console.log(data);
+                    sendBtn.innerText = 'SEND MESSAGE'
+                    sendBtn.disabled = false;
+                    const user = data[data.length - 1];
+                    messageResponse.innerText = `Hello ${user.name}, your message has been recorded.`;
+                    messageResponse.style.display = "block";
+                    formName.value = '';
+                    formEmail.value = '';
+                    formMsg.value = '';
+
+                    setTimeout(function () {
+                        messageResponse.innerText = ``;
+                        messageResponse.style.display = "none";
+                    }, 3000)
+                });
+        }
+    </script>
+</body>
+
+</html>
